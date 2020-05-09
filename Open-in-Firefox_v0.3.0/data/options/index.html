@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Open In Options</title>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      min-width: 500px;
+    }
+    table.tbl {
+      width: 100%;
+    }
+    .tbl td:first-child {
+      width: 1px;
+      white-space: nowrap;
+    }
+    .tbl td:last-child {
+      text-align: right;
+    }
+    .admin {
+      background-color: #ffffed;
+      border: solid 1px #e8ec3a;
+      padding: 10px;
+      margin: 15px 0;
+    }
+    code {
+      background-color: rgba(0, 0, 0, 0.05);
+      padding: 0 3px;
+    }
+    code:empty::after {
+      content: 'not defined';
+      font-family: italic;
+    }
+    hr {
+      border: none;
+      border-top: dashed 1px #ccc;
+    }
+    h2 {
+      background-color: #e6e6e6;
+      padding: 5px;
+    }
+    ol {
+      padding-left: 1.8em;
+    }
+    li {
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Open With Keyboard-Mouse-Click Combinations</h2>
+  <table class="tbl">
+    <tr>
+      <td><label for="enabled">Enabled</label></td>
+      <td><input id="enabled" type="checkbox"></td>
+    </tr>
+    <tr>
+      <td>Mouse click<sup>4</sup></td>
+      <td>
+        <label>Ctrl <input id="ctrlKey" type="checkbox"></label>&nbsp;+&nbsp;
+        <label>Alt <input id="altKey" type="checkbox"></label>&nbsp;+&nbsp;
+        <label>Shift <input id="shiftKey" type="checkbox"></label>&nbsp;+&nbsp;
+        <label>Meta <input id="metaKey" type="checkbox"></label>&nbsp;+&nbsp;
+        <select id="button">
+          <option value=0>Left Click</option>
+          <option value=1 disabled="true">Middle Click</option>
+          <option value=2 disabled="true">Right Click</option>
+        </select>
+      </td>
+    </tr>
+  </table>
+  <h2>Open with Left-Click</h2>
+  <table class="tbl">
+    <tr>
+      <td colspan="2" style="text-align: left; white-space: normal;">Comma-separated list of domains to open with the external browser when the link is opened with left-click<sup>1</sup></td>
+    </tr>
+    <tr>
+      <td colspan="2"><textarea id="hosts" style="width: 100%" rows="3" placeholder="e.g.: www.google.com, bing.com"></textarea></td>
+    </tr>
+    <tr>
+      <td colspan="2" style="text-align: left; white-space: normal;">Comma-separated list of URLs to open with the external browser when the link is opened with left-click<sup>1</sup></td>
+    </tr>
+    <tr>
+      <td colspan="2"><textarea id="urls" style="width: 100%" rows="3" placeholder="e.g.: https://www.google.com/, https://bing.com/"></textarea></td>
+    </tr>
+  </table>
+  <label style="display: inline-flex; align-items: center;"><input type="checkbox" id="reverse">&nbsp;Reverse Mode (experimental feature)<sup>5</sup></label>
+  <h2>Misc</h2>
+  <table class="tbl">
+    <tbody>
+      <tr>
+        <td><label for="closeme">Close the source tab when link is pushed</label></td>
+        <td><input type="checkbox" id="closeme"></td>
+      </tr>
+      <tr>
+        <td><label for="multiple">Open multiple links at once<sup>3</sup></label></td>
+        <td><input type="checkbox" id="multiple"></td>
+      </tr>
+      <tr>
+        <td><label for="faqs">Open FAQs page on updates</label></td>
+        <td><input type="checkbox" id="faqs"></td>
+      </tr>
+      <tr>
+        <td colspan="2" style="text-align: left;">Path to the executable<sup>2</sup>:</td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <div style="display: flex;">
+            <input type="text" id="path" style="flex: 1;">
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="admin">This extension supports managed storage. Some of the preferences can be pre-configured by <a href="https://add0n.com/open-in.html#faq17">the domain administrator</a></div>
+
+  <div id="explore" data-inc=50></div>
+  <p>
+    <button id="reset">Reset Settings</button>
+    <button id="support">Support Development</button> - <button id="save">Save Options</button>
+    <span id="status"></span>
+  </p>
+
+  <hr style="margin: 10px 0">
+  <ol>
+    <li>It is possible to use "managed storage" to set the default host and URL list. This is useful for administrators to force opening a set of URLs or hostnames in another browser. Instruction on how to setup the managed storage can be found in the FAQs page.</li>
+    <li>On Windows, if the path to the executable is not provided (is empty) <code id="l2"></code> is used. On Linux, if the path is not set, it is assumed <code id="l3"></code> binary can be found in the global PATH environment. On Mac OS, <code>open -a</code> command is used (with <code id="l4"></code> as the application or whatever is in the input).</li>
+    <li>By activating this option all the requested URLs are sent to the external executable at once. Only activate this option if the external executable is capable of handling this type of requests.</li>
+    <li>Not all key combinations are allowed in all operating systems.</li>
+    <li>When enabled, all left-click links except the ones that match with at least one condition will be sent to the external executable.</li>
+  </ol style="padding-left: 1.8em;">
+
+  <script src="../../config.js"></script>
+  <script src="index.js"></script>
+  <script async src="matched.js"></script>
+</body>
+</html>
